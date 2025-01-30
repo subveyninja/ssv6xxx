@@ -4,10 +4,10 @@ KBUILD_TOP := $(PWD)
 
 ifeq ($(KERNELRELEASE),)
 
-KVERS_UNAME ?= $(shell uname -r)
-KVERS_ARCH ?= $(shell arch)
+# KVERS_UNAME ?= $(shell uname -r)
+# KVERS_ARCH ?= $(shell arch)
 
-KBUILD ?= $(shell readlink -f /lib/modules/$(KVERS_UNAME)/build)
+KBUILD ?= $(shell readlink -f ../amlogic-s9xxx-armbian/kernel/modules/lib/modules/6.1.119/build)
 
 ifeq (,$(KBUILD))
 $(error kernel build tree not found - set KBUILD to configured kernel)
@@ -89,7 +89,7 @@ obj-$(CONFIG_SSV6200_CORE) += $(KMODULE_NAME).o
 all: modules
 
 modules:
-	ARCH=arm $(MAKE) -C $(KBUILD) M=$(KBUILD_TOP)
+	${MAKE_SET_STRING} $(MAKE) -C $(KBUILD) M=$(KBUILD_TOP)
 
 clean:
 	find -type f -iname '*.o' -exec rm {} \;
